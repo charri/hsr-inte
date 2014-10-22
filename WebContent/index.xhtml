@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/_template.xhtml">
+	<ui:define name="title">
+	    home - clone(Reddit)
+	</ui:define>
+	<ui:define name="content">
+		
+		
+		
+		<h:panelGroup id="pnlSubmit" rendered="#{userBean.valid}">
+			<ui:include src="/WEB-INF/includes/submit.xhtml"></ui:include>
+		</h:panelGroup>
+		
+		<h:form>
+		
+		<ui:repeat var="entry" value="#{entryBean.entries}">
+			
+			<div class="row">
+				<div class="col-md-1">
+					<p class="text-center">
+						<br />
+						<p:commandLink rendered="#{userBean.valid}" action="#{entryBean.upVote(entry)}" style="padding-left:2px;" ajax="false">
+							<span class="icon-material-keyboard-arrow-up"></span>
+						</p:commandLink>
+						<br />
+						<span><h:outputText id="votes" value="#{entry.votes}" /></span>
+						<br />
+						<p:commandLink rendered="#{userBean.valid}" action="#{entryBean.downVote(entry)}"  ajax="false">
+							<span class="icon-material-keyboard-arrow-down"></span>
+						</p:commandLink>
+					</p>
+				</div>
+				
+				<div class="col-md-11">
+					<h4><a href="#{entry.link}" target="_blank"><h:outputText value="#{entry.title}" /></a></h4>
+					<p>submitted <h:outputText value="#{entryBean.getRelativeDate(entry.date)}" /> ago, by <h:outputText value="#{entry.author}" /></p>
+					<p>
+						<h:outputLink value="detail.xhtml">
+							<f:param name="id" value="#{entry.id}" />
+							<span class="icon-material-forum"></span> &nbsp; 
+							<h:outputText value="#{entry.comments.size()}" />
+							comments
+						</h:outputLink>
+					</p>
+					
+				</div>
+			</div>		
+			
+		</ui:repeat>
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="navright">
+		<ui:include src="/WEB-INF/includes/login.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

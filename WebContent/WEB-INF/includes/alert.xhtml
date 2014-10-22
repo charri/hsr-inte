@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+>
+<body>
+<ui:composition>
+	
+	<ui:repeat var="msg" value="#{facesContext.messageList}">
+		
+		<div class="alert alert-dismissable alert-danger" style="margin-bottom:0px;">
+		    <button type="button" class="close" data-dismiss="alert">×</button>
+		    <p class="text-center" style="margin-bottom:0px;">
+		    <strong>
+		    <h:outputText value="#{msg.summary}" /> </strong>
+		    <h:outputText value="#{msg.detail}" />
+		    </p>
+		</div>
+	
+	</ui:repeat>
+	
+    
+</ui:composition>
+</body>
+</html>

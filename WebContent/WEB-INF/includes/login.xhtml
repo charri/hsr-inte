@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+>
+<body>
+<ui:composition>
+
+     <div class="navbar-collapse collapse">
+        <h:panelGroup rendered="#{!userBean.valid}">
+        	  <h:form class="navbar-form navbar-right" role="form" style="margin-top:2px;">
+           <div class="form-group #{userBean.validation}">
+           	<h:inputText pt:placeholder="#{msgs.alias}" value="#{userBean.alias}" class="form-control" />
+           </div>
+           <div class="form-group #{userBean.validation}">
+           	<h:inputSecret pt:placeholder="#{msgs.password}" value="#{userBean.password}" class="form-control" />
+           </div>
+           <div class="form-group">
+           	&nbsp;&nbsp;<h:commandButton action="#{userBean.login}" class="btn btn-success" value="#{msgs.login}" />
+           </div>
+           <div class="form-group">
+           	<h:outputLink class="btn btn-info withripple" value="register.xhtml"><h:outputText value="#{msgs.register}" /></h:outputLink>
+           </div>
+         </h:form>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{userBean.valid}">
+        	<h:form>
+        	<ul class="nav navbar-nav navbar-right">
+       			<li><a href="#"><h:outputText value="#{msgs.hello}" /> <strong><h:outputText value="#{userBean.alias}" /></strong></a></li>
+       			<li>&nbsp;&nbsp;<h:commandButton action="#{userBean.logout}" class="btn btn-success" value="Logout" /></li>
+     		</ul>
+     		</h:form>
+        </h:panelGroup>
+     </div><!--/.navbar-collapse -->
+    
+</ui:composition>
+</body>
+</html>
