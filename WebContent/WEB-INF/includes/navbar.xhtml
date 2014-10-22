@@ -5,19 +5,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
 >
 <body>
 <ui:composition>
 	
-	
-        
+     <h:form class="nav navbar-nav">
+     <input type="hidden" name="id" value="#{entryBean.currentId}"/> 
      <ul class="nav navbar-nav">
        <li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
        <h:panelGroup rendered="#{userBean.valid}">
-       	<li><a href="submit.xhtml" id="submit-link">Submit a link</a></li>
+       	<li>
+       
+       	<p:commandLink value="#{msgs.nav_submit}" update=":formSubmit"  ajax="true" actionListener="#{userBean.toggleSubmit}" />
+       	   
+       	</li>
        </h:panelGroup>
      </ul>
-          
+  	</h:form>
     
 </ui:composition>
 </body>

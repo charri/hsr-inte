@@ -146,7 +146,18 @@ public class RelativeDateFormat extends DateFormat {
      */
     private static long MILLISECONDS_IN_ONE_DAY = 24 * MILLISECONDS_IN_ONE_HOUR;
 
-    /**
+    private String justASecondAgo = "just a second ago";
+    
+    
+    public String getJustASecondAgo() {
+		return justASecondAgo;
+	}
+
+	public void setJustASecondAgo(String justASecondAgo) {
+		this.justASecondAgo = justASecondAgo;
+	}
+
+	/**
      * Creates a new instance with base milliseconds set to zero.
      */
     public RelativeDateFormat() {
@@ -171,7 +182,7 @@ public class RelativeDateFormat extends DateFormat {
         super();
         this.baseMillis = baseMillis;
         this.showZeroDays = false;
-        this.showZeroHours = true;
+        this.showZeroHours = false;
         this.positivePrefix = "";
         this.dayFormatter = NumberFormat.getNumberInstance();
         this.daySuffix = "d";
@@ -491,10 +502,16 @@ public class RelativeDateFormat extends DateFormat {
             toAppendTo.append(this.hourFormatter.format(hours)
                     + getHourSuffix());
         }
-        toAppendTo.append(this.minuteFormatter.format(minutes)
-                + getMinuteSuffix());
+        if(minutes != 0) {
+	        toAppendTo.append(this.minuteFormatter.format(minutes)
+	                + getMinuteSuffix());
+        }
+        else {
+        	toAppendTo.append(getJustASecondAgo());
+        }
+        /*
         toAppendTo.append(this.secondFormatter.format(seconds)
-                + getSecondSuffix());
+                + getSecondSuffix());*/
         return toAppendTo;
     }
 

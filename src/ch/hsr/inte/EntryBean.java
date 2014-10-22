@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -24,7 +25,7 @@ import ch.hsr.inte.model.Comment;
 import ch.hsr.inte.model.Entry;
 
 @ManagedBean(name = "entryBean", eager = true)
-@SessionScoped
+@RequestScoped
 public class EntryBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -93,6 +94,8 @@ public class EntryBean implements Serializable {
 		
 		save();
 		
+		setShowSubmit(false);
+		
 		setTitle("");
 		setLink("");
 		
@@ -129,13 +132,32 @@ public class EntryBean implements Serializable {
 		}
 	}
 	
+	@ManagedProperty(value="#{languageBean}")
+	private LanguageBean languageBean;
+	
+	public LanguageBean getLanguageBean() {
+		return languageBean;
+	}
+	public void setLanguageBean(LanguageBean languageBean) {
+		this.languageBean = languageBean;
+	}
 	public String getRelativeDate(Date date) {
 		RelativeDateFormat rdf = new RelativeDateFormat(date);
 		rdf.setSecondFormatter(new DecimalFormat("0"));
-		rdf.setDaySuffix("days ");
-        rdf.setHourSuffix("h ");
-        rdf.setMinuteSuffix("min ");
-        rdf.setSecondSuffix("s ");
+		
+        
+       
+        if("en".equals(getLanguageBean().getLocaleCode())) {
+        	rdf.setDaySuffix(" days ");
+        	rdf.setHourSuffix(" h ");
+        	 rdf.setMinuteSuffix(" min ");
+        	rdf.setJustASecondAgo("just a second ago");
+        } else {
+        	rdf.setDaySuffix(" Tagen ");
+        	rdf.setHourSuffix(" Stunden	 ");
+        	rdf.setMinuteSuffix(" Minuten");
+        	rdf.setJustASecondAgo("vor einige Sekunden");
+        }
 		return rdf.format(new Date());
 	}
 	

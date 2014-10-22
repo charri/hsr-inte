@@ -12,13 +12,7 @@
 	    home - clone(Reddit)
 	</ui:define>
 	<ui:define name="content">
-		
-		
-		
-		<h:panelGroup id="pnlSubmit" rendered="#{userBean.valid}">
-			<ui:include src="/WEB-INF/includes/submit.xhtml"></ui:include>
-		</h:panelGroup>
-		
+				
 		<h:form>
 		
 		<ui:repeat var="entry" value="#{entryBean.entries}">
@@ -41,13 +35,13 @@
 				
 				<div class="col-md-11">
 					<h4><a href="#{entry.link}" target="_blank"><h:outputText value="#{entry.title}" /></a></h4>
-					<p>submitted <h:outputText value="#{entryBean.getRelativeDate(entry.date)}" /> ago, by <h:outputText value="#{entry.author}" /></p>
+					<p><h:outputText value="#{msgs.submitted}" />&nbsp;<h:outputText value="#{entryBean.getRelativeDate(entry.date)}" /> <h:outputText value="#{msgs.ago_by}" /> <strong><h:outputText value="#{entry.author}" /></strong></p>
 					<p>
 						<h:outputLink value="detail.xhtml">
 							<f:param name="id" value="#{entry.id}" />
 							<span class="icon-material-forum"></span> &nbsp; 
-							<h:outputText value="#{entry.comments.size()}" />
-							comments
+							<h:outputText value="#{entry.comments.size()}" /> &nbsp;
+							<h:outputText value="#{msgs.comment}" />
 						</h:outputLink>
 					</p>
 					

@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import ch.hsr.inte.model.User;
 
@@ -70,7 +71,9 @@ public class UserBean implements Serializable {
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
 	}
-
+	
+	private boolean showSubmit;
+	
 	
 	public String getValidation() {
 		return getIsPostback() && !isValid ? "has-error" : "";
@@ -149,5 +152,17 @@ public class UserBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
 		FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+	}
+
+	public boolean getShowSubmit() {
+		return showSubmit;
+	}
+
+	public void setShowSubmit(boolean showSubmit) {
+		this.showSubmit = showSubmit;
+	}
+	
+	public void toggleSubmit(ActionEvent event) {
+		setShowSubmit(!getShowSubmit());
 	}
 }

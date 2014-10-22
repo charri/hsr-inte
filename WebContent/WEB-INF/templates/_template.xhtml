@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="utf-8" />
   	<title><ui:insert name="title">Reddit Clone</ui:insert></title>
@@ -19,7 +20,7 @@
     <ui:insert name="head" />
 </h:head>
 
-<body>
+<h:body>
 <ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
 
 <ui:include src="/WEB-INF/includes/alert.xhtml"/>
@@ -44,7 +45,12 @@
    </div>
 </div>
 <div class="container">
-  <ui:insert name="content" />
+	<p:outputPanel id="formSubmit">
+		<h:form styleClass="form-horizontal" rendered="#{userBean.showSubmit}">
+			<ui:include src="/WEB-INF/includes/submit.xhtml"></ui:include>
+		</h:form>
+	</p:outputPanel>
+  	<ui:insert name="content" />
 </div>
 
 <div class="container">
@@ -53,6 +59,7 @@
 			<br /><div class="noUi-origin noUi-background" style="position:static;"></div><br />
 			
 			<h:form class="form-inline">
+				<input type="hidden" name="id" value="#{entryBean.currentId}"/> 
 				<p style="display:inline-block;">&copy; clone Industries Limited 2014&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
 				<div class="form-group">
 				<h:selectOneMenu class="form-control" value="#{languageBean.localeCode}" onchange="submit()"
@@ -75,6 +82,6 @@
     
     <h:outputScript name="js/site.js" />
     <ui:insert name="scripts" />
-</body>
+</h:body>
 
 </html>
